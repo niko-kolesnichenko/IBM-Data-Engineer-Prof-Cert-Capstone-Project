@@ -3,6 +3,20 @@
 BEGIN;
 
 
+CREATE TABLE public."softcartDimCategory"
+(
+    category_id integer NOT NULL,
+    category_name character varying(5) NOT NULL,
+    PRIMARY KEY (category_id)
+);
+
+CREATE TABLE public."softcartDimCountry"
+(
+    country_id smallint NOT NULL,
+    country_name character varying(56) NOT NULL,
+    PRIMARY KEY (country_id)
+);
+
 CREATE TABLE public."softcartDimDate"
 (
     date_id integer NOT NULL,
@@ -17,27 +31,11 @@ CREATE TABLE public."softcartDimDate"
     PRIMARY KEY (date_id)
 );
 
-CREATE TABLE public."softcartDimCategory"
-(
-    category_id integer NOT NULL,
-    category_name character varying(5) NOT NULL,
-    PRIMARY KEY (category_id)
-);
-
 CREATE TABLE public."softcartDimItem"
 (
     item_id integer NOT NULL,
     item_name character varying(300) NOT NULL,
-    category_id integer NOT NULL,
-    price numeric(6, 2) NOT NULL,
     PRIMARY KEY (item_id)
-);
-
-CREATE TABLE public."softcartDimCountry"
-(
-    country_id smallint NOT NULL,
-    country_name character varying(56) NOT NULL,
-    PRIMARY KEY (country_id)
 );
 
 CREATE TABLE public."softcartFactSales"
@@ -46,14 +44,10 @@ CREATE TABLE public."softcartFactSales"
     item_id integer NOT NULL,
     country_id smallint NOT NULL,
     date_id integer NOT NULL,
+    category_id integer NOT NULL,
+    price numeric(62) NOT NULL,
     PRIMARY KEY (order_id)
 );
-
-ALTER TABLE public."softcartFactSales"
-    ADD FOREIGN KEY (date_id)
-    REFERENCES public."softcartDimDate" (date_id)
-    NOT VALID;
-
 
 ALTER TABLE public."softcartFactSales"
     ADD FOREIGN KEY (country_id)
@@ -67,7 +61,13 @@ ALTER TABLE public."softcartFactSales"
     NOT VALID;
 
 
-ALTER TABLE public."softcartDimItem"
+ALTER TABLE public."softcartFactSales"
+    ADD FOREIGN KEY (date_id)
+    REFERENCES public."softcartDimDate" (date_id)
+    NOT VALID;
+
+
+ALTER TABLE public."softcartFactSales"
     ADD FOREIGN KEY (category_id)
     REFERENCES public."softcartDimCategory" (category_id)
     NOT VALID;
