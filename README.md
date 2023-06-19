@@ -5,6 +5,12 @@
 As part of the Capstone project, I will assume the role of an Associate Data Engineer who has recently joined an e-commerce organization (SoftCart).
 I am presented with a business challenge that requires building a data platform for retailer data analytics.
 
+## Structure
+
+I've created sub-folders in this repository, which correspond to listed tasks.
+
+Each sub-folder has its own README.md file which is rendered by GitHub. These files contain tasks, my commentaries and solutions in easy readable form.
+
 ## Tasks
 
 - design a data platform:
